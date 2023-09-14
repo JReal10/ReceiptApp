@@ -1,15 +1,14 @@
-import { View, Text } from 'react-native'
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import tabNavigator from './tabNavigator';
+import TabNavigator from './tabNavigator';
 
 const Stack = createNativeStackNavigator();
 
 export default function stackNavigator() {
   return (
     <Stack.Navigator>
-    <Stack.Screen name="Home" component={Home} options={{
+    <Stack.Screen name="Tab" component={TabNavigator} options={{
       title: 'Expenses',
       headerStyle:{
         backgroundColor: '#A35D6A',

@@ -14,6 +14,13 @@ export default function Home() {
       date: 'today',
       price: '$140',
     },
+    {
+      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abs28ba',
+      image: receipt,
+      title: 'First Item',
+      date: 'today',
+      price: '$140',
+    },
   ];
 
   const imageWidth = windowWidth * 0.3; // Set the image width as a percentage of the screen width
