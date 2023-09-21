@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import receipt from '../assets/receipt.png';
+import Button from '../components/HomeButton'
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -53,6 +54,7 @@ export default function Home() {
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />
+      <Button ></Button>
     </SafeAreaView>
   );
 }
