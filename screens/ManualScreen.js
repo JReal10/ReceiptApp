@@ -8,66 +8,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import Animated, { FadeInDown, FadeInUp, FadeOutUp, SlideInDown, SlideInUp, useSharedValue } from 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/native';
 
-
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-
-export default function Home() {
-  const DATA = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      image: receipt,
-      title: 'First Item',
-      date: 'today',
-      price: '$140',
-    },
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abs28ba',
-      image: receipt,
-      title: 'First Item',
-      date: 'today',
-      price: '$140',
-    },
-  ];
-  
-  const offset = useSharedValue(windowHeight * 0.4);
-  const navigation = useNavigation();
-  const [modalVisible, setModalVisible] = useState(false);
-
-  const imageWidth = windowWidth * 0.3; // Set the image width as a percentage of the screen width
-  const textContainerWidth = windowWidth * 0.7 - 32; // Subtracting padding
-
-  const renderItem = ({ item }) => (
-    <View style={styles.itemContainer}>
-      <View style={[styles.imageContainer, { width: imageWidth }]}>
-        <Image source={item.image} style={[styles.image, { width: imageWidth, height: imageWidth }]} />
-      </View>
-      <View style={[styles.textContainer, { width: textContainerWidth }]}>
-        <View>
-          <Text style={styles.date}>{item.date}</Text>
-          <View style={styles.titlePriceContainer}>
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.price}>{item.price}</Text>
-          </View>
-        </View>
-        <TouchableOpacity style = {{flexDirection:'row', alignItems:'center', justifyContent:'flex-end'}}>
-          <Text style={styles.detailButton}>See Full Detail</Text>
-          <Ionicons name = "chevron-forward-outline" size = {20}></Ionicons>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-
+export default function ManualScreen() {
   return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        data={DATA}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
-      
-      <Modal
+    <Modal
       animationType='slide'
       transparent= {true}
       visible = {modalVisible}
@@ -105,58 +51,10 @@ export default function Home() {
           </View>
       </Animated.View>
       </Modal>
-
-      
-
-      <Button onPress = {() => {setModalVisible(true)}}></Button>
-    </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    paddingHorizontal: 16,
-  },
-  itemContainer: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-    paddingVertical: 16,
-    flexDirection: 'row',
-  },
-  imageContainer: {
-    marginRight: 16,
-    alignItems: 'center',
-  },
-  image: {
-    resizeMode: 'cover',
-    borderRadius: 8,
-  },
-  textContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-  titlePriceContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  title: {
-    fontSize: windowWidth < 375 ? 16 : 18, // Adjust font size based on screen width
-    fontWeight: 'bold',
-  },
-  date: {
-    fontSize: windowWidth < 375 ? 12 : 14, // Adjust font size based on screen width
-    color: '#888',
-  },
-  price: {
-    fontSize: windowWidth < 375 ? 14 : 16, // Adjust font size based on screen width
-    fontWeight: 'bold',
-  },
-  detailButton: {
-    textAlign: 'right',
-  },
   modalContainer:{
     backgroundColor: 'white',
     borderRadius: 20,
@@ -211,6 +109,5 @@ const styles = StyleSheet.create({
   },
   modalText: {
     fontSize: 14,
-  },
-
-});
+  }
+})
