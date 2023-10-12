@@ -82,7 +82,7 @@ export default function Home() {
             <Ionicons name = "close" size = {20}></Ionicons>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity onPress={()=>{navigation.navigate('Camera')}}>
+        <TouchableOpacity onPress={()=>{navigation.navigate('Camera'),setModalVisible(false)}}>
           <View style={styles.modalSubContainer}>
             <Text style={[styles.modalHeading, { color: '#333' }]}>Insert using camera</Text>
             <Text style={[styles.modalText, { color: '#666' }]}>

@@ -1,113 +1,121 @@
-import React from 'react';
-import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, Dimensions, Modal } from 'react-native';
-import { useState } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import receipt from '../assets/receipt.png';
-import Button from '../components/HomeButton'
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import Animated, { FadeInDown, FadeInUp, FadeOutUp, SlideInDown, SlideInUp, useSharedValue } from 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/native';
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-
 export default function ManualScreen() {
-  return (
-    <Modal
-      animationType='slide'
-      transparent= {true}
-      visible = {modalVisible}
-      >
-      <Animated.View style = {styles.modalBackground} entering={FadeInDown.springify().damping(25)} exiting={FadeOutUp.springify().damping(25)}>
-        <View style = {styles.modalContainer}>
+  const [input1, setInput1] = useState('');
+  const [input2, setInput2] = useState('');
+  const [input3, setInput3] = useState('');
 
-        <View style = {styles.modalTitleContainer}>
-          <View></View>
-          <Text style = {styles.modalTitle}>Add Receipt</Text>
-          <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-            <Ionicons name = "close" size = {20}></Ionicons>
-          </TouchableOpacity>
-        </View>
-        <TouchableOpacity onPress={()=>{navigation.navigate('Camera')}}>
-          <View style={styles.modalSubContainer}>
-            <Text style={[styles.modalHeading, { color: '#333' }]}>Insert using camera</Text>
-            <Text style={[styles.modalText, { color: '#666' }]}>
-              Take a picture of the receipt and it will automatically fill in the name, price, the place you shopped, etc.
-            </Text>
-            <View style = {styles.cameraBackground}>
-            <Ionicons name = "camera" size = {30} style = {styles.camera}></Ionicons>
-            </View>
-          </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={()=> {navigation.navigate('Manual'),setModalVisible(false)}}>
-          <View style={[styles.modalSubContainer]}>
-            <Text style={[styles.modalHeading, { color: '#333' }]}>Enter Manually</Text>
-            <Text style={[styles.modalText, { color: '#666' }]}>
-              Fill in the receipt details yourself and add it to your expenses.
-            </Text>
-            <Ionicons style = {styles.arrowFoward} name = "arrow-forward-circle" size = {60}></Ionicons>
-          </View>
-          </TouchableOpacity>
-          </View>
-      </Animated.View>
-      </Modal>
-  )
+  const navigation = useNavigation();
+
+  const handleSubmit = () => {
+
+  };
+
+  return (
+    <View style={styles.container}>
+      <View style = {styles.header}>
+      <TouchableOpacity onPress = {()=>{navigation.navigate('HomeTab')}}>
+        <Ionicons name = {"close-sharp"} size = {20} ></Ionicons>
+      </TouchableOpacity>
+        <Text style = {styles.title}>Enter Manually</Text>
+        <Ionicons name = {"close-sharp"} color = {"#fff"}size = {20} ></Ionicons>
+      </View>
+
+      <View style = {styles.inputWrapper}>
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Name</Text>
+        <TextInput
+          style={styles.input}
+          value={input1}
+          onChangeText={(text) => setInput1(text)}
+          placeholder="Enter text for Input Field 1"
+        />
+      </View>
+
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Location</Text>
+        <TextInput
+          style={styles.input}
+          value={input2}
+          onChangeText={(text) => setInput2(text)}
+          placeholder="Enter text for Input Field 2"
+        />
+      </View>
+
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Expense</Text>
+        <TextInput
+          style={styles.input}
+          value={input3}
+          onChangeText={(text) => setInput3(text)}
+          placeholder="Enter text for Input Field 3"
+        />
+      </View>
+      </View>
+
+
+      <TouchableOpacity style={styles.button}>
+        <Text style = {styles.buttonText}>Submit</Text>
+    </TouchableOpacity>
+
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-  modalContainer:{
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+  container: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingTop:'20%',
+    backgroundColor: '#fff',
   },
-  modalTitle:{
+  title: {
     fontSize: 16,
     fontWeight: 'bold',
   },
-  modalTitleContainer:{
-    flexDirection: 'row',
-    paddingVertical: 10, // Add padding to create vertical space
-    justifyContent:'space-between'
+  header:{
+    justifyContent:'space-between',
+    flexDirection:'row',
+    paddingHorizontal:10,
+    paddingVertical:20,
   },
-  cameraBackground:{
-    backgroundColor:'#A35D6A',
-    marginTop:5,
-    padding: 8,
-    alignSelf:'center',
-    borderRadius: 30,
+  inputContainer: {
+    marginBottom: 30,
+    shadowColor: '#171717',
+    shadowOffset: {width: -1, height: 1},
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
   },
-  camera:{
-    color:'#F0F0F0'
+  label: {
+    fontSize: 16,
+    fontWeight:'bold'
   },
-  arrowFoward:{
-    color:'#A35D6A',
-    alignSelf:'center',
-    marginTop:5,
+  input: {
+    borderRadius: 8,
+    backgroundColor:'#F0F0F0',
+    padding: 20,
+    marginTop: 10,
   },
-  modalBackground:{
-    backgroundColor: '#A35D6A75',
-    flex: 1,
-    justifyContent: 'flex-end',
+  inputWrapper: {
+    padding:20
   },
-  modalSubContainer: {   
-    padding: 18,
-    borderRadius: 6,
-    backgroundColor: '#F7F7F7',
-    marginBottom:10,
+  button: {
+    backgroundColor: '#A35D6A',
+    paddingVertical: 15,
+    borderRadius: 15,
+    alignItems: 'center',
+    shadowColor: '#171717',
+    shadowOffset: {width: -2, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    marginHorizontal:20,
   },
-  modalHeading: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  modalText: {
-    fontSize: 14,
+  buttonText:{
+    color: "#fff",
+    fontSize:16,
+    fontWeight:'bold'
   }
-})
+});

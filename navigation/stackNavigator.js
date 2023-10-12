@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Tab from './nestedTabNavigator';
 import Reports from '../screens/Reports';
+import ManualScreen from '../screens/ManualScreen';
 import Camera from '../screens/Camera';
 
 const Stack = createNativeStackNavigator();
@@ -23,6 +24,13 @@ export default function StackNavigator() {
           headerTitleStyle: {
             fontWeight: 'bold',
           }
+        })}/>
+
+        <Stack.Screen
+        name="Manual"
+        component={ManualScreen}
+        options={({ navigation }) => ({
+          headerShown:false,
         })}/>
 
         <Stack.Screen
