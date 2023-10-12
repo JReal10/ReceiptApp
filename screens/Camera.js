@@ -1,14 +1,21 @@
-import React, { useState,useEffect } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useState,useEffect,useRef } from 'react';
+import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Camera } from 'expo-camera';
+import Button from '../components/Button';
 
 export default function CameraComponent() {
+  const [hasCameraPermission, setHasCameraPermission] = useState(null);
+  const [image,setImage] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
+  const [flash,setFlash] = useState(Camera.Constants.FlashMode.off);
+  const cameraRef = useRef(null);
+
   const [permission, requestPermission] = Camera.useCameraPermissions();
 
   useEffect(() => {
     (async () => {
-      const { status } = await requestPermission();
+      const cameraStatus = await Camera.requestCameraPermissionsAsync();
+      setHasCameraPermission(cameraStatus.status === 'granted')
     })();
   }, []);
   
@@ -35,40 +42,32 @@ export default function CameraComponent() {
   }
 
   return (
-    <View style={styles.container}>
-      <Camera style={styles.camera} type={type}>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
-            <Text style={styles.text}>Flip Camera</Text>
-          </TouchableOpacity>
-        </View>
+    <SafeAreaView style={styles.container}>
+      <Button icon = 'close' title = {''}></Button>
+      <Camera style={styles.camera} type={type}
+      flashMode={flash}
+      ref = {cameraRef}>
       </Camera>
-    </View>
+      <View class = {styles.cameraProp}>
+        <Button title = {''} icon = 'flash'></Button>
+        <Button title = {''} icon = 'radio-button-on' ></Button>
+        <Button title = {''} icon = 'sync-circle' onPress={toggleCameraType}></Button>
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor:"#A35D6A",
     flexDirection: 'column',
+    padding:20,
   },
   camera: {
     flex: 1,
   },
-  buttonContainer: {
-    position: 'absolute',
-    bottom: 20,
-    right: 20,
-  },
-  button: {
-    backgroundColor: 'white',
-    borderRadius: 50,
-    width: 60,
-    height: 60,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    color: 'black',
-  },
+  cameraProp:{
+    flexDirection: 'row',
+  }
 });
