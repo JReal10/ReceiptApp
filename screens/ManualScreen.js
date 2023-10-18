@@ -84,10 +84,6 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginBottom: 30,
-    shadowColor: '#171717',
-    shadowOffset: {width: -1, height: 1},
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
   },
   label: {
     fontSize: 16,
@@ -98,6 +94,10 @@ const styles = StyleSheet.create({
     backgroundColor:'#F0F0F0',
     padding: 20,
     marginTop: 10,
+    shadowColor: '#171717',
+    shadowOffset: {width: -1, height: 1},
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
   },
   inputWrapper: {
     padding:20

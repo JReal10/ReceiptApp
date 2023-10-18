@@ -31,6 +31,7 @@ export default function StackNavigator() {
         component={ManualScreen}
         options={({ navigation }) => ({
           headerShown:false,
+          presentation:'modal',
         })}/>
 
         <Stack.Screen

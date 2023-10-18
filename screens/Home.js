@@ -5,8 +5,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import receipt from '../assets/receipt.png';
 import Button from '../components/HomeButton'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import Animated, { FadeInDown, FadeInUp, FadeOutUp, SlideInDown, SlideInUp, useSharedValue } from 'react-native-reanimated';
+import { useEffect } from 'react';
+import { addDoc,collection } from 'firebase/firestore';
+import Animated, { FadeInDown, FadeOutUp,useSharedValue } from 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/native';
+import { FIRESTORE_DB } from '../firebase/firebase.config';
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -30,6 +33,11 @@ export default function Home() {
       price: '$140',
     },
   ];
+
+  useEffect(() => {
+    addDoc(collection(FIRESTORE_DB, 'receipts'), {title: 'A test', done: false})
+    
+  },[]);
   
   const offset = useSharedValue(windowHeight * 0.4);
   const navigation = useNavigation();
